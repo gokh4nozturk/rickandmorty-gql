@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+
+import Character from "./components/character";
+import CharacterDetail from "./components/characterDetail";
 
 function App() {
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Link to="/">
+        <h1>Rick and Morty</h1>
+      </Link>
+      <Switch>
+        <Route path="/" exact>
+          <Character page={page} />
+        </Route>
+        <Route path="/character/:id" component={CharacterDetail} />
+      </Switch>
+      <hr />
+      <div>
+        <button
+          onClick={() => {
+            setPage(page - 1);
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          prev
+        </button>
+        <button
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
+          next
+        </button>
+      </div>
+    </Router>
   );
 }
 
