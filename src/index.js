@@ -11,7 +11,7 @@ import {
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://rickandmortyapi.com/graphql/",
+  uri: "http://localhost:4000/",
   cache: new InMemoryCache(),
 });
 
@@ -20,9 +20,7 @@ client.query({
   query: gql`
     query GetCharacters {
       characters {
-        results {
-          id
-        }
+        id
       }
     }
   `,
@@ -35,7 +33,7 @@ ReactDOM.render(
       <App />
     </React.StrictMode>
   </ApolloProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want to start measuring performance in your app, pass a function
