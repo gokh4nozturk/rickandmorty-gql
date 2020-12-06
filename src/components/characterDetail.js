@@ -3,8 +3,8 @@ import { useParams } from "react-router";
 import { gql, useQuery } from "@apollo/client";
 
 const CHARACTER = gql`
-  query GetCharacter($id: ID!) {
-    character(id: $id) {
+  query GetCharacter($characterWhere: CharacterWhereUniqueInput!) {
+    character(where: $characterWhere) {
       id
       name
       image
@@ -16,12 +16,13 @@ const Character = () => {
   const { id } = useParams();
 
   const { loading, error, data } = useQuery(CHARACTER, {
-    variables: { id: id },
+    variables: {
+      characterWhere: { id: Number(id) },
+    },
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :( </p>;
-
+  if (error) return `${error}`;
   return (
     <div key={data.character.id}>
       <figure>
