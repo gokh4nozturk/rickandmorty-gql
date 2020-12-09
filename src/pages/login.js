@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Layout from "../components/layout/layout";
 import { useHistory } from "react-router";
+import { setAccessToken } from "../accessToken";
 
 const LOGIN = gql`
   mutation Login($loginUsername: String!, $loginPassword: String!) {
@@ -15,16 +16,11 @@ const Login = () => {
   const [login, { loading, error, data }] = useMutation(LOGIN);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [accessToken, setAccessToken] = useState("");
   const { push } = useHistory();
 
   if (loading) return <p>Loading...</p>;
-  if (data) {
-    setAccessToken(data);
-  }
+  if (data) setAccessToken(data.login.token);
   if (error) return `${error}`;
-
-  console.log(accessToken);
 
   return (
     <Layout>
@@ -32,19 +28,18 @@ const Login = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           if (username !== "" && password !== "") {
-            const response = await login({
+            await login({
               variables: {
                 loginUsername: username,
                 loginPassword: password,
               },
             });
-            console.log(response);
           } else {
             console.log("düzgün iş yap");
           }
           setUsername("");
           setPassword("");
-          push("/");
+          push("/profile");
         }}
       >
         <input

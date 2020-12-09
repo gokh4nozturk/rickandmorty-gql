@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import Register from "./pages/register.js";
 import Login from "./pages/login";
 import CharacterDetail from "./components/character/characterDetail";
+import Profile from "./pages/currentUser";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/profile" component={Profile} />
         <Route path="/character/:id" component={CharacterDetail} />
       </Switch>
     </Router>
