@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import Layout from "../components/layout/layout";
+import Layout from "../components/layout";
 import { useHistory } from "react-router";
 
 const REGISTER = gql`
