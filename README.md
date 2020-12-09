@@ -1,2 +1,2 @@
 # rickandmorty-gql
-- This project was created to make an advanced example with GraphQL.
+- This project was created to make an basic example with GraphQL.
