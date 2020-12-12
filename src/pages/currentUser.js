@@ -28,6 +28,8 @@ const LIKE_CHARACTER = gql`
   ) {
     addFavoriteCharacter(characterId: $addFavoriteCharacterCharacterId) {
       id
+      name
+      image
     }
   }
 `;
@@ -136,7 +138,7 @@ const Profile = () => {
                           });
                         }}
                       >
-                        unlike
+                        dislike
                       </button>
                     </div>
                   </div>

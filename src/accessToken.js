@@ -1,9 +1,9 @@
-let accessToken = "";
+const TOKEN_KEY = "token";
 
 export const setAccessToken = (s) => {
-  accessToken = s;
+  localStorage.setItem(TOKEN_KEY, s);
 };
 
 export const getAccessToken = () => {
-  return accessToken;
+  return localStorage.getItem(TOKEN_KEY);
 };

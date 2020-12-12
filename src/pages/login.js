@@ -18,30 +18,32 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { push } = useHistory();
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!username || !password) {
+      console.log("Doldur sunlari");
+    }
+    try {
+      const loginResponse = await login({
+        variables: {
+          loginUsername: username,
+          loginPassword: password,
+        },
+      });
+      if (loginResponse.data?.token) {
+        setAccessToken(data.login.token);
+        push("/profile");
+      }
+    } catch {
+      console.log("sifre felan yanlis");
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
-  if (data) setAccessToken(data.login.token);
-  if (error) return `${error}`;
 
   return (
     <Layout>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          if (username !== "" && password !== "") {
-            await login({
-              variables: {
-                loginUsername: username,
-                loginPassword: password,
-              },
-            });
-          } else {
-            console.log("düzgün iş yap");
-          }
-          setUsername("");
-          setPassword("");
-          push("/profile");
-        }}
-      >
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="severussnipe"
