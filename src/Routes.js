@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
 import Register from "./pages/register.js";
 import Login from "./pages/login";
-import Profile from "./pages/currentUser";
+import Profile from "./pages/profile";
 import Character from "./components/character";
 import CharacterDetail from "./components/character/characterDetail";
 import Episode from "./components/episode";
