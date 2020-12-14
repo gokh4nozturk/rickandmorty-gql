@@ -15,41 +15,37 @@ const Register = () => {
   const [register, { loading, error, data }] = useMutation(REGISTER);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [accessToken, setAccessToken] = useState("");
   const { push } = useHistory();
 
   if (loading) return <p>Loading...</p>;
-  if (data) {
-    setAccessToken(data);
-  }
+
   if (error) return `${error}`;
 
-  console.log(accessToken);
-
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!username || !password) {
+      console.log("Fill field.");
+    }
+    try {
+      const response = await register({
+        variables: {
+          registerUsername: username,
+          registerPassword: password,
+        },
+      });
+      if (response.data.token) {
+        push("/login");
+      }
+    } catch {
+      console.log("Try again!");
+    }
+  };
   return (
     <Layout>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          if (username !== "" && password !== "") {
-            const response = await register({
-              variables: {
-                registerUsername: username,
-                registerPassword: password,
-              },
-            });
-            console.log(response);
-          } else {
-            console.log("düzgün iş yap");
-          }
-          setUsername("");
-          setPassword("");
-          push("/login");
-        }}
-      >
+      <form onSubmit={onSubmit}>
         <input
           type="text"
-          placeholder="severussnipe"
+          placeholder="severus_snipe"
           onChange={(e) => {
             setUsername(e.currentTarget.value);
           }}

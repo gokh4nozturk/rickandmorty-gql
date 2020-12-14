@@ -21,7 +21,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {
-      console.log("Doldur sunlari");
+      console.log("Fill field.");
     }
     try {
       const loginResponse = await login({
@@ -35,18 +35,20 @@ const Login = () => {
         push("/profile");
       }
     } catch {
-      console.log("sifre felan yanlis");
+      console.log("Try again!");
     }
   };
 
   if (loading) return <p>Loading...</p>;
+
+  if (error) return `${error}`;
 
   return (
     <Layout>
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          placeholder="severussnipe"
+          placeholder="severus_snipe"
           onChange={(e) => {
             setUsername(e.currentTarget.value);
           }}
