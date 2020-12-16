@@ -1,26 +1,17 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Layout from "../layout";
-
-const CHARACTERS = gql`
-  query GetCharacters {
-    characters {
-      id
-      name
-    }
-  }
-`;
+import { useGetCharactersQuery } from "../../generated/graphql";
 
 const Character = () => {
-  const { loading, error, data } = useQuery(CHARACTERS);
+  const { loading, error, data } = useGetCharactersQuery();
 
   if (loading) return <p>Loading...</p>;
   if (error) return error;
 
   return (
     <Layout>
-      <div>
+      <div style={{ overflowY: "scroll", height: "90vh" }}>
         {data.characters.map(({ id, name }) => (
           <div key={id}>
             <Link to={`/character/${id}`}>

@@ -1,20 +1,10 @@
-import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../layout";
-
-const LOCATIONS = gql`
-  query GetLocations {
-    locations {
-      id
-      name
-    }
-  }
-`;
+import { useGetLocationsQuery } from "../../generated/graphql";
 
 const Location = () => {
-  const { loading, error, data } = useQuery(LOCATIONS);
-
+  const { loading, error, data } = useGetLocationsQuery();
   if (loading) {
     return <p>Loading...</p>;
   }

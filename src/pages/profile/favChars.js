@@ -1,31 +1,13 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
-
-const LIKE_CHARACTER = gql`
-  mutation AddFavoriteCharacterMutation(
-    $addFavoriteCharacterCharacterId: Int!
-  ) {
-    addFavoriteCharacter(characterId: $addFavoriteCharacterCharacterId) {
-      id
-      name
-      image
-    }
-  }
-`;
-
-const DISLIKE_CHARACTER = gql`
-  mutation RemoveFavoriteCharacterMutation(
-    $removeFavoriteCharacterCharacterId: Int!
-  ) {
-    removeFavoriteCharacter(characterId: $removeFavoriteCharacterCharacterId) {
-      id
-    }
-  }
-`;
+import {
+  useAddFavoriteCharacterMutation,
+  useRemoveFavoriteCharacterMutation,
+} from "../../generated/graphql";
 
 const FavoriteCharacters = ({ character }) => {
-  const [addFavoriteCharacter] = useMutation(LIKE_CHARACTER);
-  const [removeFavoriteCharacter] = useMutation(DISLIKE_CHARACTER);
+  const [addFavoriteCharacter] = useAddFavoriteCharacterMutation();
+  const [removeFavoriteCharacter] = useRemoveFavoriteCharacterMutation();
   return (
     <div key={character.id}>
       <figure>

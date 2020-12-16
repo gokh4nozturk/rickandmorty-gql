@@ -1,27 +1,12 @@
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
-
-const LIKE_LOCATION = gql`
-  mutation AddFavoriteLocationMutation($addFavoriteLocationLocationId: Int!) {
-    addFavoriteLocation(locationId: $addFavoriteLocationLocationId) {
-      id
-    }
-  }
-`;
-
-const DISLIKE_LOCATION = gql`
-  mutation RemoveFavoriteLocationMutation(
-    $removeFavoriteLocationLocationId: Int!
-  ) {
-    removeFavoriteLocation(locationId: $removeFavoriteLocationLocationId) {
-      id
-    }
-  }
-`;
+import {
+  useAddFavoriteLocationMutation,
+  useRemoveFavoriteLocationMutation,
+} from "../../generated/graphql";
 
 const FavoriteLocations = ({ location }) => {
-  const [addFavoriteLocation] = useMutation(LIKE_LOCATION);
-  const [removeFavoriteLocation] = useMutation(DISLIKE_LOCATION);
+  const [addFavoriteLocation] = useAddFavoriteLocationMutation();
+  const [removeFavoriteLocation] = useRemoveFavoriteLocationMutation();
   return (
     <div>
       <ul key={location.id}>

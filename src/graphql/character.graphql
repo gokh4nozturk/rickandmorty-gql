@@ -1,0 +1,26 @@
+query GetCharacters {
+  characters {
+    id
+    name
+  }
+}
+
+query GetCharacter($characterWhere: CharacterWhereUniqueInput!) {
+  character(where: $characterWhere) {
+    id
+    name
+    image
+  }
+}
+
+mutation AddFavoriteCharacter($addFavoriteCharacterCharacterId: Int!) {
+  addFavoriteCharacter(characterId: $addFavoriteCharacterCharacterId) {
+    id
+  }
+}
+
+mutation RemoveFavoriteCharacter($removeFavoriteCharacterCharacterId: Int!) {
+  removeFavoriteCharacter(characterId: $removeFavoriteCharacterCharacterId) {
+    id
+  }
+}

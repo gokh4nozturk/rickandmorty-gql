@@ -1,19 +1,10 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Layout from "../layout";
-
-const EPISODES = gql`
-  query GetEpisodes {
-    episodes {
-      id
-      name
-    }
-  }
-`;
+import { useGetEpisodesQuery } from "../../generated/graphql";
 
 const Episode = () => {
-  const { loading, error, data } = useQuery(EPISODES);
+  const { loading, error, data } = useGetEpisodesQuery();
 
   if (loading) return <p>Loading...</p>;
   if (error) return error;

@@ -1,0 +1,25 @@
+query GetLocations {
+  locations {
+    id
+    name
+  }
+}
+
+query GetLocation($locationWhere: LocationWhereUniqueInput!) {
+  location(where: $locationWhere) {
+    id
+    name
+  }
+}
+
+mutation AddFavoriteLocation($addFavoriteLocationLocationId: Int!) {
+  addFavoriteLocation(locationId: $addFavoriteLocationLocationId) {
+    id
+  }
+}
+
+mutation RemoveFavoriteLocation($removeFavoriteLocationLocationId: Int!) {
+  removeFavoriteLocation(locationId: $removeFavoriteLocationLocationId) {
+    id
+  }
+}

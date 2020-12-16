@@ -1,27 +1,13 @@
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
-
-const LIKE_EPISODE = gql`
-  mutation AddFavoriteEpisodeMutation($addFavoriteEpisodeEpisodeId: Int!) {
-    addFavoriteEpisode(episodeId: $addFavoriteEpisodeEpisodeId) {
-      id
-    }
-  }
-`;
-
-const DISLIKE_EPISODE = gql`
-  mutation RemoveFavoriteEpisodeMutation(
-    $removeFavoriteEpisodeEpisodeId: Int!
-  ) {
-    removeFavoriteEpisode(episodeId: $removeFavoriteEpisodeEpisodeId) {
-      id
-    }
-  }
-`;
+import {
+  useAddFavoriteEpisodeMutation,
+  useRemoveFavoriteEpisodeMutation,
+} from "../../generated/graphql";
 
 const FavoriteEpisodes = ({ episode }) => {
-  const [addFavoriteEpisode] = useMutation(LIKE_EPISODE);
-  const [removeFavoriteEpisode] = useMutation(DISLIKE_EPISODE);
+  const [addFavoriteEpisode] = useAddFavoriteEpisodeMutation();
+  const [removeFavoriteEpisode] = useRemoveFavoriteEpisodeMutation();
+
   return (
     <div>
       <ul key={episode.id}>

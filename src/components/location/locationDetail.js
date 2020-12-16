@@ -1,42 +1,19 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router";
 import Layout from "../layout";
-
-const LOCATION = gql`
-  query GetLocation($locationWhere: LocationWhereUniqueInput!) {
-    location(where: $locationWhere) {
-      id
-      name
-    }
-  }
-`;
-
-const LIKE_LOCATION = gql`
-  mutation AddFavoriteLocationMutation($addFavoriteLocationLocationId: Int!) {
-    addFavoriteLocation(locationId: $addFavoriteLocationLocationId) {
-      id
-    }
-  }
-`;
-
-const UNLIKE_LOCATION = gql`
-  mutation RemoveFavoriteLocationMutation(
-    $removeFavoriteLocationLocationId: Int!
-  ) {
-    removeFavoriteLocation(locationId: $removeFavoriteLocationLocationId) {
-      id
-    }
-  }
-`;
+import {
+  useGetLocationQuery,
+  useAddFavoriteLocationMutation,
+  useRemoveFavoriteLocationMutation,
+} from "../../generated/graphql";
 
 const LocationDetail = () => {
   const { id } = useParams();
-  const { error, loading, data } = useQuery(LOCATION, {
+  const { error, loading, data } = useGetLocationQuery({
     variables: { locationWhere: { id: Number(id) } },
   });
-  const [addFavoriteLocation] = useMutation(LIKE_LOCATION);
-  const [removeFavoriteLocation] = useMutation(UNLIKE_LOCATION);
+  const [addFavoriteLocation] = useAddFavoriteLocationMutation();
+  const [removeFavoriteLocation] = useRemoveFavoriteLocationMutation();
 
   if (loading) {
     return <p>Loading...</p>;

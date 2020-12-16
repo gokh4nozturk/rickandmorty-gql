@@ -1,0 +1,25 @@
+query GetEpisodes {
+  episodes {
+    id
+    name
+  }
+}
+
+query GetEpisode($episodeWhere: EpisodeWhereUniqueInput!) {
+  episode(where: $episodeWhere) {
+    id
+    name
+  }
+}
+
+mutation AddFavoriteEpisode($addFavoriteEpisodeEpisodeId: Int!) {
+  addFavoriteEpisode(episodeId: $addFavoriteEpisodeEpisodeId) {
+    id
+  }
+}
+
+mutation RemoveFavoriteEpisode($removeFavoriteEpisodeEpisodeId: Int!) {
+  removeFavoriteEpisode(episodeId: $removeFavoriteEpisodeEpisodeId) {
+    id
+  }
+}

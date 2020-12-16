@@ -1,44 +1,21 @@
 import React from "react";
 import { useParams } from "react-router";
-import { gql, useMutation, useQuery } from "@apollo/client";
 import Layout from "../layout";
-
-const EPISODE = gql`
-  query GetEpisode($episodeWhere: EpisodeWhereUniqueInput!) {
-    episode(where: $episodeWhere) {
-      id
-      name
-    }
-  }
-`;
-
-const LIKE_EPISODE = gql`
-  mutation AddFavoriteEpisodeMutation($addFavoriteEpisodeEpisodeId: Int!) {
-    addFavoriteEpisode(episodeId: $addFavoriteEpisodeEpisodeId) {
-      id
-    }
-  }
-`;
-
-const UNLIKE_EPISODE = gql`
-  mutation RemoveFavoriteEpisodeMutation(
-    $removeFavoriteEpisodeEpisodeId: Int!
-  ) {
-    removeFavoriteEpisode(episodeId: $removeFavoriteEpisodeEpisodeId) {
-      id
-    }
-  }
-`;
+import {
+  useGetEpisodeQuery,
+  useAddFavoriteEpisodeMutation,
+  useRemoveFavoriteEpisodeMutation,
+} from "../../generated/graphql";
 
 const EpisodeDetail = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(EPISODE, {
+  const { loading, error, data } = useGetEpisodeQuery({
     variables: {
       episodeWhere: { id: Number(id) },
     },
   });
-  const [addFavoriteEpisode] = useMutation(LIKE_EPISODE);
-  const [removeFavoriteEpisode] = useMutation(UNLIKE_EPISODE);
+  const [addFavoriteEpisode] = useAddFavoriteEpisodeMutation();
+  const [removeFavoriteEpisode] = useRemoveFavoriteEpisodeMutation();
 
   if (loading) return <p>Loading...</p>;
   if (error) return `${error}`;

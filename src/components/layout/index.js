@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
         <Link to="/login">Login</Link>
         <Link to="/profile">Profile</Link>
       </nav>
-      <main>{children}</main>
+      <main style={{ height: "900px" }}>{children}</main>
       <footer>footer</footer>
     </div>
   );
