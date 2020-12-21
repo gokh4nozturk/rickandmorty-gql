@@ -2,6 +2,9 @@ query GetCharacters {
   characters {
     id
     name
+    image
+    species
+    status
   }
 }
 

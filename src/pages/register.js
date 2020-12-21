@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Layout from "../components/layout";
 import { useHistory } from "react-router";
+import { Button, MyForm, MyLabel, TextBox, Wrapper } from "./styles";
 
 const REGISTER = gql`
   mutation Register($registerUsername: String!, $registerPassword: String!) {
@@ -42,23 +43,29 @@ const Register = () => {
   };
   return (
     <Layout>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="severus_snipe"
-          onChange={(e) => {
-            setUsername(e.currentTarget.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => {
-            setPassword(e.currentTarget.value);
-          }}
-        />
-        <button type="submit">Register</button>
-      </form>
+      <Wrapper>
+        <MyForm onSubmit={onSubmit}>
+          <MyLabel htmlFor="username">Username</MyLabel>
+          <TextBox
+            id="username"
+            type="text"
+            placeholder="severus_snipe"
+            onChange={(e) => {
+              setUsername(e.currentTarget.value);
+            }}
+          />
+          <MyLabel htmlFor="password">Password</MyLabel>
+          <TextBox
+            id="password"
+            type="password"
+            placeholder="password"
+            onChange={(e) => {
+              setPassword(e.currentTarget.value);
+            }}
+          />
+          <Button type="submit">Register</Button>
+        </MyForm>
+      </Wrapper>
     </Layout>
   );
 };

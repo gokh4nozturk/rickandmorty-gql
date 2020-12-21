@@ -1444,7 +1444,7 @@ export type GetCharactersQuery = (
   { __typename?: 'Query' }
   & { characters: Array<(
     { __typename?: 'Character' }
-    & Pick<Character, 'id' | 'name'>
+    & Pick<Character, 'id' | 'name' | 'image' | 'species' | 'status'>
   )> }
 );
 
@@ -1593,6 +1593,9 @@ export const GetCharactersDocument = gql`
   characters {
     id
     name
+    image
+    species
+    status
   }
 }
     `;

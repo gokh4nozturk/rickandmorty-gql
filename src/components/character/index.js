@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Layout from "../layout";
 import { useGetCharactersQuery } from "../../generated/graphql";
 
+import { Card, PartOne, PartTwo, Wrapper } from "./styles/charStyle";
+
 const Character = () => {
   const { loading, error, data } = useGetCharactersQuery();
 
@@ -11,15 +13,22 @@ const Character = () => {
 
   return (
     <Layout>
-      <div style={{ overflowY: "scroll", height: "90vh" }}>
-        {data.characters.map(({ id, name }) => (
-          <div key={id}>
-            <Link to={`/character/${id}`}>
-              <p>{name}</p>
-            </Link>
-          </div>
+      <Wrapper>
+        {data.characters.map(({ id, name, image, status, species }) => (
+          <Link className="char-link" to={`/character/${id}`}>
+            <Card key={id}>
+              <PartOne>
+                <img src={image} alt={name} />
+              </PartOne>
+              <PartTwo>
+                <h5>{name}</h5>
+                <p>{status}</p>
+                <p>{species}</p>
+              </PartTwo>
+            </Card>
+          </Link>
         ))}
-      </div>
+      </Wrapper>
     </Layout>
   );
 };
